@@ -1,0 +1,19 @@
+{
+  "name": "discord-voice",
+  "version": "1.0.0",
+  "description": "A recreation of the connection between discord.js and @discord.js/voice",
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ducktrshessami/discord-voice.git"
+  },
+  "author": "ducktrshessami",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ducktrshessami/discord-voice/issues"
+  },
+  "homepage": "https://github.com/ducktrshessami/discord-voice#readme"
+}
