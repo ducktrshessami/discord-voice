@@ -8,5 +8,5 @@ declare module "discord-voice" {
         selfMute?: Boolean
     };
 
-    export function voiceChannelConnect(channel: VoiceChannel, options?: VoiceChannelConnectOptions): VoiceConnection;
+    export function voiceChannelConnectSync(channel: VoiceChannel, options?: VoiceChannelConnectOptions): VoiceConnection;
 }
