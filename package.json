@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "A recreation of the connection between discord.js and @discord.js/voice",
   "main": "lib/index.js",
+  "types": "typings/index.d.ts",
   "scripts": {
     "test": "mocha"
   },
