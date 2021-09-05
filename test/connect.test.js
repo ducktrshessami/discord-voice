@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { VoiceConnection, VoiceConnectionStatus } = require("@discordjs/voice");
+const { VoiceConnection, VoiceConnectionStatus, entersState } = require("@discordjs/voice");
 const assert = require("assert");
 const { Client } = require("discord.js");
 const { voiceChannelConnectSync, voiceChannelConnect } = require("../lib");
@@ -38,35 +38,33 @@ describe("test connection functions", function () {
             connection.destroy();
         });
 
-        it("connects properly", function (done) {
-            let connection = voiceChannelConnectSync(channel);
-            connection.once(VoiceConnectionStatus.Ready, () => {
-                connection.destroy();
-                done();
-            });
-        });
+        it("connects properly", function () {
+            let connection = voiceChannelConnectSync(channel, { selfMute: false });
+            return entersState(connection, VoiceConnectionStatus.Ready, 30000)
+                .then(() => connection.destroy());
+        }).timeout(30000);
     });
 
     describe("voiceChannelConnect", function () {
-        it("resolve when ready", function (done) {
-            voiceChannelConnect(channel)
+        it("resolve when ready", function () {
+            return voiceChannelConnect(channel, { selfMute: false })
                 .then(connection => {
                     if (connection.state.status === VoiceConnectionStatus.Ready) {
                         connection.destroy();
-                        done();
                     }
                     else {
                         connection.destroy();
-                        done("connection not ready");
+                        throw new Error("connection not ready");
                     }
-                })
-                .catch(done);
-        });
+                });
+        }).timeout(30000);
 
-        it("resolves in a VoiceConnection", function (done) {
-            voiceChannelConnect(channel)
-                .then(connection => assert(connection instanceof VoiceConnection))
-                .catch(done);
-        });
+        it("resolves in a VoiceConnection", function () {
+            return voiceChannelConnect(channel)
+                .then(connection => {
+                    assert(connection instanceof VoiceConnection);
+                    connection.destroy();
+                });
+        }).timeout(30000);
     });
 })
