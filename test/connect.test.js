@@ -39,16 +39,21 @@ describe("test connection functions", function () {
                 adapterCreator: channel.guild.voiceAdapterCreator
             });
             return Promise.all([
-                entersState(connection, VoiceConnectionStatus.Signalling, 30000),
-                entersState(connection, VoiceConnectionStatus.Connecting, 30000),
-                entersState(connection, VoiceConnectionStatus.Ready, 30000)
+                entersState(connection, VoiceConnectionStatus.Signalling, 300000)
+                    .then(() => console.log("Emitted Signalling")),
+                entersState(connection, VoiceConnectionStatus.Connecting, 300000)
+                    .then(() => console.log("Emitted Connecting")),
+                entersState(connection, VoiceConnectionStatus.Ready, 300000)
+                    .then(() => console.log("Emitted Ready"))
             ])
                 .then(() => Promise.all([
-                    entersState(connection, VoiceConnectionStatus.Disconnected, 30000),
-                    entersState(connection, VoiceConnectionStatus.Destroyed, 30000),
+                    entersState(connection, VoiceConnectionStatus.Disconnected, 300000)
+                        .then(() => console.log("Emitted Disconnected")),
+                    entersState(connection, VoiceConnectionStatus.Destroyed, 300000)
+                        .then(() => console.log("Emitted Destroyed")),
                     connection.destroy()
                 ]));
-        }).timeout(60000);
+        }).timeout(600000);
     });
 
     /*describe("voiceChannelConnectSync", function () {
