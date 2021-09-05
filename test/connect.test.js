@@ -1,5 +1,5 @@
 require("dotenv").config();
-const { VoiceConnection, VoiceConnectionStatus, entersState } = require("@discordjs/voice");
+const { VoiceConnection, VoiceConnectionStatus, entersState, joinVoiceChannel } = require("@discordjs/voice");
 const assert = require("assert");
 const { Client } = require("discord.js");
 const { voiceChannelConnectSync, voiceChannelConnect } = require("../lib");
@@ -31,7 +31,27 @@ describe("test connection functions", function () {
         client.destroy();
     });
 
-    describe("voiceChannelConnectSync", function () {
+    describe("@discordjs/voice", function () {
+        it("emits voice connection state changes properly", function () {
+            let connection = joinVoiceChannel({
+                channelId: channel.id,
+                guildId: channel.guild.id,
+                adapterCreator: channel.guild.voiceAdapterCreator
+            });
+            return Promise.all([
+                entersState(connection, VoiceConnectionStatus.Signalling, 30000),
+                entersState(connection, VoiceConnectionStatus.Connecting, 30000),
+                entersState(connection, VoiceConnectionStatus.Ready, 30000)
+            ])
+                .then(() => Promise.all([
+                    entersState(connection, VoiceConnectionStatus.Disconnected, 30000),
+                    entersState(connection, VoiceConnectionStatus.Destroyed, 30000),
+                    connection.destroy()
+                ]));
+        }).timeout(60000);
+    });
+
+    /*describe("voiceChannelConnectSync", function () {
         it("returns a VoiceConnection", function () {
             let connection = voiceChannelConnectSync(channel);
             assert(connection instanceof VoiceConnection);
@@ -66,5 +86,5 @@ describe("test connection functions", function () {
                     connection.destroy();
                 });
         }).timeout(30000);
-    });
+    });*/
 })
