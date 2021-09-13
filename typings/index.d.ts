@@ -1,5 +1,5 @@
 import { AudioPlayer, AudioResource, NoSubscriberBehavior, StreamType, VoiceConnection } from "@discordjs/voice";
-import { VoiceChannel } from "discord.js";
+import { StageChannel, VoiceChannel } from "discord.js";
 
 type VoiceChannelConnectSyncOptions = {
     group?: String,
@@ -27,12 +27,12 @@ type VoiceConnectionPlayOptions<T> = {
 };
 
 declare module "discord-voice" {
-    export function voiceChannelConnectSync(channel: VoiceChannel, options?: VoiceChannelConnectSyncOptions): VoiceConnection;
-    export function voiceChannelConnect(channel: VoiceChannel, options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
+    export function voiceChannelConnectSync(channel: VoiceChannel | StageChannel, options?: VoiceChannelConnectSyncOptions): VoiceConnection;
+    export function voiceChannelConnect(channel: VoiceChannel | StageChannel, options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
 }
 
 declare module "discord.js" {
-    interface VoiceChannel {
+    interface BaseGuildVoiceChannel {
         connect(options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
         connectSync(options?: VoiceChannelConnectSyncOptions): VoiceConnection;
     }
