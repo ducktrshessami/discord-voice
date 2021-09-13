@@ -5,7 +5,7 @@
   "main": "lib/index.js",
   "types": "typings/index.d.ts",
   "scripts": {
-    "test": "mocha --no-parallel"
+    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
@@ -27,10 +27,6 @@
     "@discordjs/opus": "^0.6.0",
     "ffmpeg-static": "^4.4.0",
     "sodium": "github:ducktrshessami/node-sodium"
-  },
-  "devDependencies": {
-    "dotenv": "^10.0.0",
-    "mocha": "^9.1.1"
   },
   "engines": {
     "node": ">=16.6.0",
