@@ -16,5 +16,11 @@ declare module "discord-voice" {
     };
 
     export function voiceChannelConnectSync(channel: VoiceChannel, options?: VoiceChannelConnectSyncOptions): VoiceConnection;
-    export function voiceChannelConnect(channel: VoiceChannel, options?: VoiceChannelConnectSyncOptions): Promise<VoiceConnection>;
+    export function voiceChannelConnect(channel: VoiceChannel, options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
+}
+
+declare module "discord.js" {
+    interface VoiceChannel {
+        connect(options?: VoiceChannelConnectOptions): VoiceConnection;
+    }
 }
