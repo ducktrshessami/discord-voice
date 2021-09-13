@@ -1,4 +1,4 @@
-import { AudioPlayer, AudioResource, NoSubscriberBehavior, StreamType, VoiceConnection } from "@discordjs/voice";
+import { AudioResource, NoSubscriberBehavior, PlayerSubscription, StreamType, VoiceConnection } from "@discordjs/voice";
 import { StageChannel, VoiceChannel } from "discord.js";
 
 type VoiceChannelConnectSyncOptions = {
@@ -44,6 +44,6 @@ declare module "discord.js" {
 
 declare module "@discordjs/voice" {
     interface VoiceConnection {
-        play<T>(input: String | ReadableStream, options?: VoiceConnectionPlayOptions<T>): [AudioPlayer, AudioResource<T>];
+        play<T>(input: String | ReadableStream, options?: VoiceConnectionPlayOptions<T>): [PlayerSubscription, AudioResource<T>];
     }
 }
