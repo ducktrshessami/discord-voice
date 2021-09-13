@@ -24,7 +24,7 @@
     "discord.js": "^13.1.0"
   },
   "optionalDependencies": {
-    "@discordjs/opus": "^0.5.3",
+    "@discordjs/opus": "^0.6.0",
     "ffmpeg-static": "^4.4.0",
     "sodium": "github:ducktrshessami/node-sodium"
   },
