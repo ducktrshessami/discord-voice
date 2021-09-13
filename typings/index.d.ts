@@ -23,4 +23,8 @@ declare module "discord.js" {
     interface VoiceChannel {
         connect(options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
     }
+
+    interface Guild {
+        public readonly voiceConnection?: VoiceConnection;
+    }
 }
