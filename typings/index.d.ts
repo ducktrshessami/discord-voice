@@ -33,16 +33,17 @@ declare module "discord-voice" {
 
 declare module "discord.js" {
     interface VoiceChannel {
-        public connect(options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
+        connect(options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
+        connectSync(options?: VoiceChannelConnectSyncOptions): VoiceConnection;
     }
 
     interface Guild {
-        public readonly voiceConnection?: VoiceConnection;
+        readonly voiceConnection?: VoiceConnection;
     }
 }
 
 declare module "@discordjs/voice" {
     interface VoiceConnection {
-        public play<T>(input: String | ReadableStream, options?: VoiceConnectionPlayOptions<T>): [AudioPlayer, AudioResource<T>];
+        play<T>(input: String | ReadableStream, options?: VoiceConnectionPlayOptions<T>): [AudioPlayer, AudioResource<T>];
     }
 }
