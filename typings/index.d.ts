@@ -1,4 +1,4 @@
-import Voice, { AudioResource, NoSubscriberBehavior, PlayerSubscription, StreamType, VoiceConnection } from "@discordjs/voice";
+import Voice, { AudioPlayerStatus, AudioResource, NoSubscriberBehavior, PlayerSubscription, StreamType, VoiceConnection, VoiceConnectionStatus } from "@discordjs/voice";
 import { StageChannel, VoiceChannel } from "discord.js";
 
 type VoiceChannelConnectSyncOptions = {
@@ -53,5 +53,10 @@ declare module "discord.js" {
 declare module "@discordjs/voice" {
     interface VoiceConnection {
         play<T>(input: String | ReadableStream | AudioResource<T>, options?: VoiceConnectionPlayOptions<T>): [PlayerSubscription, AudioResource<T>];
+        entersState(status: VoiceConnectionStatus, timeoutOrSignal: Number | AbortSignal): Promise<VoiceConnection>;
+    }
+
+    interface AudioPlayer {
+        entersState(status: AudioPlayerStatus, timeoutOrSignal: Number | AbortSignal): Promise<AudioPlayer>;
     }
 }
