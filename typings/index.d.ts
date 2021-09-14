@@ -29,11 +29,13 @@ type VoiceConnectionPlayOptions<T> = {
 declare module "discord-voice" {
     function voiceChannelConnectSync(channel: VoiceChannel | StageChannel, options?: VoiceChannelConnectSyncOptions): VoiceConnection;
     function voiceChannelConnect(channel: VoiceChannel | StageChannel, options?: VoiceChannelConnectOptions): Promise<VoiceConnection>;
+    function voiceConnectionPlay<T>(connection: VoiceConnection, input: String | ReadableStream | AudioResource<T>, options?: VoiceConnectionPlayOptions<T>): [PlayerSubscription, AudioResource<T>];
 
     export {
         Voice,
         voiceChannelConnectSync,
-        voiceChannelConnect
+        voiceChannelConnect,
+        voiceConnectionPlay
     };
 }
 
@@ -50,6 +52,6 @@ declare module "discord.js" {
 
 declare module "@discordjs/voice" {
     interface VoiceConnection {
-        play<T>(input: String | ReadableStream, options?: VoiceConnectionPlayOptions<T>): [PlayerSubscription, AudioResource<T>];
+        play<T>(input: String | ReadableStream | AudioResource<T>, options?: VoiceConnectionPlayOptions<T>): [PlayerSubscription, AudioResource<T>];
     }
 }
