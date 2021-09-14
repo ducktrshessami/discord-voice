@@ -1,5 +1,5 @@
 import Voice, { AudioPlayerStatus, AudioResource, NoSubscriberBehavior, PlayerSubscription, StreamType, VoiceConnection, VoiceConnectionStatus } from "@discordjs/voice";
-import { StageChannel, VoiceChannel } from "discord.js";
+import { Client, Guild, Snowflake, StageChannel, VoiceChannel } from "discord.js";
 
 type VoiceChannelConnectSyncOptions = {
     group?: String,
@@ -52,6 +52,12 @@ declare module "discord.js" {
 
 declare module "@discordjs/voice" {
     interface VoiceConnection {
+        readonly client?: Client;
+        readonly channel?: VoiceChannel | StageChannel;
+        readonly channelId?: Snowflake;
+        readonly guild?: Guild;
+        readonly guildId?: Snowflake;
+
         play<T>(input: String | ReadableStream | AudioResource<T>, options?: VoiceConnectionPlayOptions<T>): [PlayerSubscription, AudioResource<T>];
         entersState(status: VoiceConnectionStatus, timeoutOrSignal: Number | AbortSignal): Promise<VoiceConnection>;
     }
